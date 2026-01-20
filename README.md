@@ -1,6 +1,7 @@
 # ollama_ext
 An easy extension of ollama(-python)
 
+See https://github.com/ollama/ollama-python
 
 ## Examples
 
