@@ -2,6 +2,7 @@
 An easy extension of ollama(-python)
 
 See https://github.com/ollama/ollama-python
+Also see https://github.com/Freakwill/chat-tools
 
 ## Examples
 
