@@ -30,7 +30,7 @@ class OllamaChat(ChatMixin, Client):
             super().__init__(host='https://ollama.com',
                 headers={'Authorization': 'Bearer ' + api_key}, *args, **kwargs)
         else:
-            super().__init__(model=model, *args, **kwargs)
+            super().__init__(*args, **kwargs)
             if any(self.model==m.model for m in ollama.list().models):
                 raise ModelNotFoundError(self.model)
         self._history = history
@@ -71,7 +71,7 @@ class OllamaChat(ChatMixin, Client):
 class LocalOllamaChat(OllamaChat):
 
     def __init__(self, model='gemma3', *args, **kwargs):
-        super().__init__(model=model, api_key=None, *args, **kwargs)
+        super().__init__(model=model, *args, **kwargs)
     
     def init(self, *args, **kwargs):        
         if any(self.model==m.model for m in ollama.list().models):
