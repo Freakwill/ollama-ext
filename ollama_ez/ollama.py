@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
-from .mixin import ChatMixin
 import ollama
 from ollama import Client, ResponseError
 
-from dotenv import dotenv_values
-config = dotenv_values(".env")
-api_key = config.get('OLLAMA_API_KEY', '')
+from . import ChatMixin
+
+from .secret import api_key
 
 
 class ModelNotFoundError(Exception):
