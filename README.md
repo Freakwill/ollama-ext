@@ -5,6 +5,10 @@ See [Ollama](https://ollama.com/), https://github.com/ollama/ollama-python
 
 Also see https://github.com/Freakwill/chat-tools
 
+## Requirements
+1. install ollama and its SDK
+2. save API Key in path `ollama_ez/.env`
+
 ## Clients
 
 - OllamaChat: gpt-oss:120b by default (set api key)
