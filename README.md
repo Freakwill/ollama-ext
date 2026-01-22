@@ -1,4 +1,4 @@
-# ollama_ext
+# ollama-easy
 An easy extension of ollama(-python)
 
 See [Ollama](https://ollama.com/), https://github.com/ollama/ollama-python
