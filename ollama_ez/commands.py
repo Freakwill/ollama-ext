@@ -7,7 +7,7 @@ import yaml
 history_file = pathlib.Path('history.yaml')
 
 
-class Command:
+class Commands:
 
     # the first argument should be the object of AI-chat
 
