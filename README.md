@@ -30,3 +30,10 @@ from ollama_ext import OllamaChat # or LocalOllamaChat
 with OllamaChat() as chat:
     chat.run()
 ```
+
+## Commands
+
+In chat looping:
+    `.attr value`: set the attribute `attr` to be the value (e.g. `.model deepseek-r1`)
+    `:arg value`: set the argument `arg` in chat method (i.e. `chat_params`) to be the value
+    `!cmd *args`: run command `cmd(obj, *args)` (registered in Commands)
