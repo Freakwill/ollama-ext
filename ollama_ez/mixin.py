@@ -7,6 +7,7 @@ MAX_LEN = 1000
 
 
 class ChatMixin:
+    # Mixin for chat-bot
 
     @property
     def history(self):
@@ -65,7 +66,7 @@ class ChatMixin:
             a, v = user_input[1:].split()
             self.chat_params[a] = convert(v)
             print(f'💻System: The parameter `{a}` of chat method is set to be `{v}`.')
-        elif user_input.startswith('#'):
+        elif user_input.startswith('.'):
             a, v = user_input[1:].split()
             setattr(self, a, v)
             print(f'💻System: The attribute `{a}` of chat object is set to be `{v}`.')

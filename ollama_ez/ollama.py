@@ -7,6 +7,8 @@ from . import ChatMixin
 
 from .secret import api_key
 
+default_description = 'You are a very intelligent agent'
+
 
 class ModelNotFoundError(Exception):
     """
@@ -18,11 +20,23 @@ class ModelNotFoundError(Exception):
 
 
 class OllamaChat(ChatMixin, Client):
-    # see https://github.com/ollama/ollama-python
+    """see https://github.com/ollama/ollama-python
+    
+    Attributes:
+        chat_params (dict): parameters in chat method
+        description (str): description of the assistant, system prompt
+        model (str): the name of the model
+        name (str): the name of the assistant
+
+    Usage:
+        .attr value: set the attribute `attr` to be the value
+        :arg value: set the argument `arg` in chat method (i.e. `chat_params`) to be the value
+        !cmd *args: run command `cmd(obj, *args)`
+    """
 
     get_reply = lambda response: response.message.content
 
-    def __init__(self, description='You are a very intelligent agent', history=[], name='Assistant', model='gpt-oss:120b', api_key=api_key, *args, **kwargs):
+    def __init__(self, description=default_description, history=[], name='Assistant', model='gpt-oss:120b', api_key=api_key, *args, **kwargs):
         if ':' not in model:
             model += ':latest'
         if api_key:
@@ -68,7 +82,9 @@ class OllamaChat(ChatMixin, Client):
 
 
 class LocalOllamaChat(OllamaChat):
-
+    """Run ollama locally
+    """
+    
     def __init__(self, model='gemma3', *args, **kwargs):
         super().__init__(model=model, *args, **kwargs)
     
