@@ -12,6 +12,11 @@ class Commands:
     # the first argument should be the object of AI-chat
 
     @classmethod
+    def greet(cls, obj):
+        obj.history = []
+        print(f'💻System: Hello, user.')
+
+    @classmethod
     def clear(cls, obj):
         obj.history = []
         print(f'💻System: The history is cleared.')
@@ -36,6 +41,16 @@ class Commands:
             obj.history = yaml.safe_load(str(history_file))
         else:
             print('💻System: No history is loaded!')
+
+    @classmethod
+    def ollama(cls, obj, cmd, *args):
+        import ollama
+        if cmd == 'search':
+            cmd = 'web_search'
+        elif cmd == 'fetch':
+            cmd = 'web_fetch'
+        getattr(ollama, cmd)(*args)
+        print(f'💻System: Run ollama command `{cmd}`.')
 
     @classmethod
     def register(cls, name=None):
