@@ -35,10 +35,10 @@ class OllamaChat(ChatMixin, Client):
     """
 
     get_reply = lambda response: response.message.content
+    default_model = 'gpt-oss:120b'
+    default_description = "You are a very intelligent agent"
 
-    def __init__(self, description=default_description, history=[], name='Assistant', model='gpt-oss:120b', api_key=api_key, *args, **kwargs):
-        if ':' not in model:
-            model += ':latest'
+    def __init__(self, description=None, history=[], name='Assistant', model='gpt-oss:120b', api_key=api_key, *args, **kwargs):
         if api_key:
             super().__init__(host='https://ollama.com',
                 headers={'Authorization': 'Bearer ' + api_key}, *args, **kwargs)
@@ -47,10 +47,20 @@ class OllamaChat(ChatMixin, Client):
             if any(self.model==m.model for m in ollama.list().models):
                 raise ModelNotFoundError(self.model)
         self._history = history
-        self.description = description
+        self.description = description or self.__class__.default_description
         self.name = name
         self.model = model
         self.chat_params = {}
+
+    @property
+    def model(self):
+        return self._model
+
+    @model.setter
+    def model(self, m):
+        if ':' not in m:
+            m += ':latest'
+        self._model = m
 
     def _reply(self, messages, max_retries=10):
         """Wrapper of `chat.completions.create` method of LLM
@@ -84,6 +94,8 @@ class OllamaChat(ChatMixin, Client):
 class LocalOllamaChat(OllamaChat):
     """Run ollama locally
     """
+
+    default_model = 'gemma3'
     
     def __init__(self, model='gemma3', *args, **kwargs):
         super().__init__(model=model, *args, **kwargs)

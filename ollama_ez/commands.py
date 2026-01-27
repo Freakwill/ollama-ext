@@ -17,6 +17,12 @@ class Commands:
         print(f'💻System: Hello, user.')
 
     @classmethod
+    def reset(cls, obj):
+        obj.model = obj.__class__.default_model
+        obj.description = obj.__class__.default_description
+        print(f'💻System: Reset the settings (except the history).')
+
+    @classmethod
     def clear(cls, obj):
         obj.history = []
         print(f'💻System: The history is cleared.')
@@ -49,8 +55,11 @@ class Commands:
             cmd = 'web_search'
         elif cmd == 'fetch':
             cmd = 'web_fetch'
-        getattr(ollama, cmd)(*args)
-        print(f'💻System: Run ollama command `{cmd}`.')
+        try:
+            getattr(ollama, cmd)(*args)
+            print(f'💻System: Run the ollama command `{cmd}`.')
+        except:
+            print(f'💻System: Fail to run the ollama command `{cmd}`.')
 
     @classmethod
     def register(cls, name=None):

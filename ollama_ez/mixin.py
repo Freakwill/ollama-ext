@@ -62,16 +62,19 @@ class ChatMixin:
             max_retries (int, optional): The maximum of retries
         """
 
+        def _parse(user_input, symbole):
+            return user_input.strip(symbole+' ')[1:].split()
+
         if user_input.startswith(':'):
-            a, v = user_input[1:].split()
+            a, v = _parse(user_input, ':')
             self.chat_params[a] = convert(v)
             print(f'💻System: The parameter `{a}` of chat method is set to be `{v}`.')
         elif user_input.startswith('.'):
-            a, v = user_input[1:].split()
+            a, v = _parse(user_input, '.')
             setattr(self, a, v)
             print(f'💻System: The attribute `{a}` of chat object is set to be `{v}`.')
         elif user_input.startswith('!'):
-            cmd = user_input.lstrip('! ')
+            cmd = user_input.strip('! ')
             cmd, *args = shlex.split(cmd)
             try:
                 getattr(Commands, cmd)(self, *args)
