@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import shlex
-from .commands import Commands
+from .commands import Command
 
 MAX_LEN = 1000
 
