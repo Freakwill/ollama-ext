@@ -14,13 +14,17 @@ class Commands:
     @classmethod
     def greet(cls, obj):
         obj.history = []
-        print(f'💻System: Hello, user.')
+        print('💻System: Hello, user.')
+
+    @classmethod
+    def greet(cls, obj, *args):
+        obj.reply(*args)
 
     @classmethod
     def reset(cls, obj):
         obj.model = obj.__class__.default_model
         obj.description = obj.__class__.default_description
-        print(f'💻System: Reset the settings (except the history).')
+        print('💻System: Reset the settings (except the history).')
 
     @classmethod
     def clear(cls, obj):
@@ -38,12 +42,12 @@ class Commands:
             print("💻System: The history is stored in {history_file}!")
             history_file.write_text(yaml.dump(obj.history, allow_unicode=True))
         else:
-            print("💻System: {history_file} is available! The history will not be stored")
+            print(f"💻System: {history_file} is available! The history will not be stored")
 
     @classmethod
     def load(cls, obj):
         if history_file.exists():
-            print('💻System: The history is loaded from {history_file}!')
+            print(f'💻System: The history is loaded from {history_file}!')
             obj.history = yaml.safe_load(str(history_file))
         else:
             print('💻System: No history is loaded!')
