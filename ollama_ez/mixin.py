@@ -90,7 +90,8 @@ class ChatMixin:
             print(assistant_reply)
 
             if memory_flag:
-                messages.append({"role": "assistant", "content": assistant_reply})
+                if assistant_reply:
+                    messages.append({"role": "assistant", "content": assistant_reply})
                 self.history.extend(messages)
 
     @property
