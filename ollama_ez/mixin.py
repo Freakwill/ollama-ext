@@ -86,13 +86,19 @@ class ChatMixin:
             message = {"role": "user", "content": user_input}
             messages.append(message)
             print("🤖" + self.name.capitalize(), end=": ")
-            assistant_reply = self._reply(self.history + messages)
+            assistant_reply = self._reply(self.history + messages, max_retries=max_retries)
             print(assistant_reply)
 
             if memory_flag:
                 if assistant_reply:
                     messages.append({"role": "assistant", "content": assistant_reply})
                 self.history.extend(messages)
+
+    def quick_reply(self, user_input, messages=[]):
+
+        message = {"role": "user", "content": user_input}
+        messages.append(message)
+        return self._reply(self.history + messages)
 
     @property
     def history_size(self):

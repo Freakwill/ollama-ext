@@ -14,6 +14,7 @@ class ModelNotFoundError(Exception):
     """
     Do not find the model locally
     """
+    
     def __init__(self, model):
         self.model = model
         super().__init__(f"Model `{self.model}` is not found in locally!")
@@ -34,7 +35,6 @@ class OllamaChat(ChatMixin, Client):
         !cmd *args: run command `cmd(obj, *args)`
     """
 
-    get_reply = lambda response: response.message.content
     default_model = 'gpt-oss:120b'
     default_description = "You are a very intelligent agent"
 
