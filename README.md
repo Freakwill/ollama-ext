@@ -25,7 +25,7 @@ Main attributes of OllamaChat
 ## Examples
 
 ```python
-from ollama_ext import OllamaChat # or LocalOllamaChat
+from ollama_ez import OllamaChat # or LocalOllamaChat
 
 with OllamaChat() as chat:
     chat.run()
