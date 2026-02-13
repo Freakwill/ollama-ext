@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
 import ollama
-from ollama import Client, ResponseError
+from ollama import Client
 
 from . import ChatMixin
 
 from .secret import api_key
 
 default_description = 'You are a very intelligent agent'
+
+cloude_models = ['deepseek-v3.1:671b-cloud', 'gpt-oss:120b', 'ministral-3:8b-cloud', 'glm-5:cloud',
+'kimi-k2.5:cloud', 'qwen3-coder-next:cloud', 'rnj-1:8b-cloud', 'minimax-m2.1:cloud']
 
 
 class ModelNotFoundError(Exception):
@@ -58,9 +61,13 @@ class OllamaChat(ChatMixin, Client):
 
     @model.setter
     def model(self, m):
-        if ':' not in m:
-            m += ':latest'
-        self._model = m
+        for m_ in cloude_models:
+            if m_.startswith(m):
+                self._model = m
+        else:
+            if ':' not in m:
+                m += ':latest'
+            self._model = m
 
     def _reply(self, messages, max_retries=10):
         """Wrapper of `chat.completions.create` method of LLM

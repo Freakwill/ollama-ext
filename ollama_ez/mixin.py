@@ -63,7 +63,7 @@ class ChatMixin:
         """
 
         def _parse(user_input, symbole):
-            return user_input.strip(symbole+' ')[1:].split()
+            return user_input.strip(symbole+' ').split()
 
         if user_input.startswith(':'):
             a, v = _parse(user_input, ':')
@@ -85,9 +85,9 @@ class ChatMixin:
         else:
             message = {"role": "user", "content": user_input}
             messages.append(message)
-            print("🤖" + self.name.capitalize(), end=": ")
             assistant_reply = self._reply(self.history + messages, max_retries=max_retries)
-            print(assistant_reply)
+            if assistant_reply is not None:
+                print(f"🤖{self.name.capitalize()}: {assistant_reply}")
 
             if memory_flag:
                 if assistant_reply:
